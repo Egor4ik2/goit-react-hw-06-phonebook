@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styles from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { addContact } from '../contactSlice/ContactsSlice';
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,39 +25,26 @@ const ContactForm = ({ addContact }) => {
       return;
     }
 
-    const newContact = { name, number };
-    addContact(newContact);
+    const newContact = {
+      id: uuidv4(),
+      name,
+      number,
+    };
+
+    dispatch(addContact(newContact));
     setName('');
     setNumber('');
   };
 
   return (
     <div>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleInputChange}
-          placeholder="Name"
-        />
-        <input
-          className={styles.input}
-          type="text"
-          name="number"
-          value={number}
-          onChange={handleInputChange}
-          placeholder="Number"
-        />
-        <button className={styles.button} type="submit">Add Contact</button>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" value={name} onChange={handleInputChange} placeholder="Name" />
+        <input type="text" name="number" value={number} onChange={handleInputChange} placeholder="Number" />
+        <button type="submit">Add Contact</button>
       </form>
     </div>
   );
-};
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
