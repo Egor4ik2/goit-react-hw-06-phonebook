@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addContact } from '../contactSlice/ContactsSlice';
@@ -46,5 +47,12 @@ const ContactForm = () => {
     </div>
   );
 };
+
+
+ContactForm.propTypes = {
+
+};
+
+
 
 export default ContactForm;

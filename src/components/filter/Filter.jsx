@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../contactSlice/ContactsSlice';
 
@@ -27,5 +28,11 @@ const Filter = () => {
     </div>
   );
 };
+
+
+Filter.propTypes = {
+ 
+};
+
 
 export default Filter;
