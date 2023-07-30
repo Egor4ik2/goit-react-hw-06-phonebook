@@ -1,16 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from '../contactSlice/ContactsSlice';
+import { deleteContact } from '../../js/store/ContactsSlice';
 
 const ContactList = () => {
   const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector((state) => state.contacts.filter);
+  const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredContacts = filter
+    ? contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : contacts;
 
   const handleDelete = (contactId) => {
     dispatch(deleteContact(contactId));
@@ -29,11 +30,5 @@ const ContactList = () => {
     </ul>
   );
 };
-
-
-ContactList.propTypes = {
-
-};
-
 
 export default ContactList;
